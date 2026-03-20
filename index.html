@@ -1,1 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CUBE-SD — Curiosity, Uncertainty & Bayesian Exploration</title>
 
+  <!-- CSS -->
+  <style>
+  :root{
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: rgba(15, 23, 42, 0.10);
+    --shadow: 0 18px 60px rgba(2, 6, 23, 0.12);
+    --shadow-soft: 0 10px 28px rgba(2, 6, 23, 0.08);
+
+    --accent: #2563eb;
+    --accent-2: #0ea5e9;
+
+    --radius: 18px;
+    --radius-sm: 14px;
+    --max: 1040px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html{
+    scroll-behavior: smooth;
+    min-height: 100%;
+  }
+
+  body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    color: var(--text);
+
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 60%),
+      radial-gradient(1200px 600px at 80% 0%, rgba(14, 165, 233, 0.08), transparent 55%),
+      var(--bg);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible{
+    outline: 3px solid rgba(37,99,235,0.35);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+
+  /* Header */
+  header{
+    padding: 64px 20px 24px;
+  }
+
+  .hero{
+    max-width: var(--max);
+    margin: 0 auto;
+    background: linear-gradient(135deg, #0b1220 0%, #111b33 55%, #0b1220 100%);
+    color: #fff;
+    border-radius: calc(var(--radius) + 8px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.10);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero::before{
+    content:"";
+    position: absolute;
+    inset:-2px;
+    background:
+      radial-gradient(900px 380px at 15% 20%, rgba(37,99,235,0.32), transparent 60%),
+      radial-gradient(700px 320px at 85% 10%, rgba(14,165,233,0.22), transparent 55%),
+      radial-gradient(600px 300px at 70% 90%, rgba(37,99,235,0.16), transparent 60%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .hero-inner{
+    position: relative;
+    padding: 42px 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero h1{
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero p{
+    color: rgba(255,255,255,0.86);
+    font-size: 1.15rem;
+    font-weight: 450;
+    max-width: 80ch;
+    margin: 0 auto;
+  }
+
+  .hero-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.92);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+  }
+
+  .badge-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
+  }
+  
+  /* Nav */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(245, 247, 251, 0.78);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-inner a{
+    padding: 10px 12px;
+    border-radius: 999px;
+    color: #0b1220;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .nav-inner a:hover{
+    background: rgba(37,99,235,0.10);
+    transform: translateY(-1px);
+    color: #0b1220;
+    text-decoration: none;
+  }
+
+  /* Layout */
+  .container{
+    max-width: var(--max);
+    margin: 26px auto 60px;
+    padding: 0 14px;
+    flex: 1;
+  }
+
+  section{
+    margin-top: 18px;
+    padding: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  section h2{
+    font-size: 1.55rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-rule{
+    height: 10px;
+    width: 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 5px rgba(37,99,235,0.10);
+  }
+
+  section h3{
+    margin-top: 18px;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+
+  .muted{ color: var(--muted); }
+
+  section p{ margin-bottom: 12px; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, #ffffff, #fbfcfe);
+    font-weight: 700;
+    color: #0b1220;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+    box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  }
+
+  .btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(2,6,23,0.10);
+    border-color: rgba(37,99,235,0.25);
+    text-decoration: none;
+  }
+
+  /* Pills list */
+  .pill-list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+
+  .pill{
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(37,99,235,0.18);
+    background: rgba(37,99,235,0.06);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .project-logo{
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .project-logo img{
+    max-width: 300px;
+    height: auto;
+  }
+
+  footer{
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px){
+    .hero h1{ font-size: clamp(1.5rem, 5vw, 2rem); }
+    .hero p{ font-size: 0.95rem; }
+    section{ padding: 20px 16px; }
+    .project-logo img{ max-width: 200px; }
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>CUBE-SD</h1>
+          <p>Curiosity, Uncertainty & Bayesian Exploration in Surprise-Driven Development</p>
+        </div>
+
+        <div class="hero-badges" aria-label="Thématiques clés">
+          <span class="badge"><span class="badge-dot"></span> Curiosité & Incertitude</span>
+          <span class="badge"><span class="badge-dot"></span> Primates humains & non-humains</span>
+          <span class="badge"><span class="badge-dot"></span> Développement cognitif</span>
+          <span class="badge"><span class="badge-dot"></span> Approche comparative</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html">Accueil</a>
+      <a href="about.html">À Propos</a>
+      <a href="iface.html">Projet I-FACE</a>
+      <a href="team.html">Équipe</a>
+      <a href="publications.html">Publications</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <section id="presentation">
+      <h2><span class="section-rule" aria-hidden="true"></span> Présentation du Projet</h2>
+
+      <div class="project-logo">
+        <img src="Logo/Logo_CUBE_SD.svg" alt="Logo CUBE-SD">
+      </div>
+
+      <p>
+        Le projet <strong>CUBE-SD</strong> (Curiosity, Uncertainty & Bayesian Exploration in Surprise-Driven Development) 
+        explore comment l'incertitude façonne la curiosité chez les nourrissons humains et les primates non-humains, 
+        et comment ce processus soutient l'exploration et l'apprentissage.
+      </p>
+
+      <p>
+        En combinant des approches comportementales, physiologiques et comparatives, le projet examine si les individus 
+        portent préférentiellement leur attention sur des informations d'incertitude intermédiaire, conformément à un 
+        effet de type « Goldilocks ».
+      </p>
+
+      <p>
+        À travers un cadre inter-espèces, ce projet vise à clarifier les mécanismes par lesquels la curiosité émerge 
+        et à mieux comprendre ses fondements développementaux et évolutifs.
+      </p>
+    </section>
+
+    <section id="objectifs">
+      <h2><span class="section-rule" aria-hidden="true"></span> Objectifs Scientifiques</h2>
+
+      <h3>1. Comprendre la relation entre incertitude et curiosité</h3>
+      <p>
+        Identifier les mécanismes cognitifs et physiologiques qui médiatisent le lien entre l'incertitude environnementale 
+        et les comportements exploratoires chez les nourrissons et les primates.
+      </p>
+
+      <h3>2. Tester l'effet Goldilocks</h3>
+      <p>
+        Vérifier si les individus présentent une préférence pour les stimuli d'incertitude intermédiaire, 
+        maximisant ainsi l'apprentissage et l'engagement cognitif.
+      </p>
+
+      <h3>3. Approche comparative inter-espèces</h3>
+      <p>
+        Comparer les patterns de curiosité entre humains et primates non-humains pour identifier les continuités 
+        et discontinuités évolutives dans les processus d'exploration et d'apprentissage.
+      </p>
+    </section>
+
+    <section id="methodologie">
+      <h2><span class="section-rule" aria-hidden="true"></span> Méthodologie</h2>
+
+      <ul class="pill-list">
+        <li class="pill">Études comportementales</li>
+        <li class="pill">Mesures physiologiques (EDA, HRV)</li>
+        <li class="pill">Détection automatique d'expressions faciales</li>
+        <li class="pill">Approche comparative</li>
+        <li class="pill">Modélisation bayésienne</li>
+        <li class="pill">Intelligence artificielle</li>
+      </ul>
+
+      <p style="margin-top: 20px;">
+        Le projet utilise des dispositifs portables (Empatica EmbracePlus) pour mesurer l'activité électrodermale (EDA) 
+        comme indice d'arousal et la variabilité de la fréquence cardiaque (HRV) comme indice d'attention. 
+        Un outil d'intelligence artificielle développé avec le Dr Fabien Cerrotti permet la détection automatique 
+        des expressions faciales de surprise.
+      </p>
+    </section>
+
+    <section id="workpackages">
+      <h2><span class="section-rule" aria-hidden="true"></span> Work Packages</h2>
+
+      <h3>WP1 : Étude expérimentale chez les nourrissons</h3>
+      <p>
+        Étude avec des nourrissons de 18 à 24 mois examinant la relation entre incertitude et curiosité. 
+        Objectif : tester si la surprise, l'arousal et l'attention vagale médiatisent le lien entre incertitude et curiosité.
+      </p>
+
+      <h3>WP2 : Étude comparative chez les primates non-humains</h3>
+      <p>
+        Étude comparative en collaboration avec plusieurs parcs zoologiques, impliquant trois espèces de primates 
+        non-humains pour tester la continuité évolutive de l'effet Goldilocks.
+      </p>
+
+      <h3>WP3 : Modélisation et Intelligence Artificielle</h3>
+      <p>
+        Approche de modélisation en deux étapes : (1) intégration des tailles d'effet obtenues dans WP1 et WP2 
+        dans un modèle d'équations structurelles (SEM) pour formaliser les relations entre incertitude, surprise, 
+        arousal et attention ; (2) implémentation de ce modèle dans un agent artificiel (IA) pour tester sa 
+        validité prédictive.
+      </p>
+    </section>
+
+    <section id="liens">
+      <h2><span class="section-rule" aria-hidden="true"></span> Liens Utiles</h2>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+        <a class="btn" href="about.html">En savoir plus</a>
+        <a class="btn" href="iface.html">Projet I-FACE</a>
+        <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Site du laboratoire</a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025-2026 Projet CUBE-SD. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
