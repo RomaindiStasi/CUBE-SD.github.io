@@ -202,6 +202,7 @@
 
   section h2{
     font-size: 1.55rem;
+    font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 14px;
     display: flex;
@@ -221,6 +222,7 @@
     margin-top: 18px;
     margin-bottom: 10px;
     font-size: 1.15rem;
+    font-weight: 600;
     letter-spacing: -0.01em;
   }
 
@@ -280,6 +282,30 @@
     height: auto;
   }
 
+  /* Cube Image Container */
+  .cube-image-container{
+    text-align: center;
+    margin: 24px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(14,165,233,0.03));
+    border: 2px dashed rgba(37,99,235,0.18);
+    border-radius: var(--radius-sm);
+  }
+
+  .cube-image-container img{
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cube-image-placeholder{
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
   footer{
     text-align: center;
     padding: 20px;
@@ -293,6 +319,7 @@
     .hero p{ font-size: 0.95rem; }
     section{ padding: 20px 16px; }
     .project-logo img{ max-width: 200px; }
+    .cube-image-container img{ max-width: 300px; }
   }
   </style>
 </head>
@@ -330,7 +357,7 @@
   <div class="container">
 
     <section id="About">
-      <h1><span class="section-rule" aria-hidden="true"></span> Project Overview</h1>
+      <h2><span class="section-rule" aria-hidden="true"></span> Project Overview</h2>
 
       <div class="project-logo">
         <img src="https://raw.githubusercontent.com/RomaindiStasi/page/main/Logo/Logo_CUBE_SD.svg" alt="CUBE-SD Logo">
@@ -358,28 +385,40 @@
     </section>
 
     <section id="structure">
-      <h1><span class="section-rule" aria-hidden="true"></span> Research Structure</h1>
+      <h2><span class="section-rule" aria-hidden="true"></span> Research Structure</h2>
 
       <p>
         The CUBE-SD project is structured into three main research axes, for which I have secured funding for the 
         first axis and am currently seeking funding for the other two.
       </p>
 
-      <h3>Axis 1: Infant Studies (Funded)</h3>
+      <h3>Axis 1: Infant Studies (Funded) — WP1</h3>
       <p>
         Funded by the Wallonie-Bruxelles International (WBI) excellence fellowship (R. di Stasi) and the Consolidate ARC (A. de Heering), this axis evaluates how 
         environmental predictability influences curiosity in infants aged 18-24 months, as well as the mechanisms 
         explaining the link between uncertainty and curiosity. This axis is divided into two studies.
       </p>
 
-      <h3>Axis 2: Comparative Studies with Non-Human Primates</h3>
+      <div class="cube-image-container">
+        <!-- Replace the src with your actual cube image URL for WP1 -->
+        <img src="https://via.placeholder.com/400x300/2563eb/ffffff?text=Cube+WP1+-+Infant+Studies" alt="Cube used in Infant Studies (WP1)">
+        <p class="cube-image-placeholder">Photo du cube utilisé pour les études avec les bébés (WP1)</p>
+      </div>
+
+      <h3>Axis 2: Comparative Studies with Non-Human Primates — WP2</h3>
       <p>
         This axis aims to assess whether the Goldilocks effect is specific to humans or constitutes a more general 
         adaptation observable in other non-human primates. Partnerships with several European zoos are being 
         established to test multiple non-human primate species and trace the phylogeny of the Goldilocks effect.
       </p>
 
-      <h3>Axis 3: Theoretical Modeling and Artificial Intelligence</h3>
+      <div class="cube-image-container">
+        <!-- Replace the src with your actual cube image URL for WP2 -->
+        <img src="https://via.placeholder.com/400x300/0ea5e9/ffffff?text=Cube+WP2+-+Primates" alt="Cube prototype for Non-Human Primates (WP2)">
+        <p class="cube-image-placeholder">Photo du cube prototype pour les primates non-humains (WP2)</p>
+      </div>
+
+      <h3>Axis 3: Theoretical Modeling and Artificial Intelligence — WP3</h3>
       <p>
         This axis will test a theoretical model of curiosity developed from the results of Axes 1 and 2. 
         The model will first be formalized using structural equation modeling (SEM), then simulated on an 
@@ -417,24 +456,24 @@
     <section id="Team">
       <h2><span class="section-rule" aria-hidden="true"></span> Collaborations & Funding</h2>
 
-      <h2>Funding</h2>
+      <h3>Funding</h3>
       <p>
         <strong>Axis 1</strong> is funded by a Wallonie-Bruxelles International (WBI) excellence fellowship (R. di Stasi) and the Consolidate ARC (A. de Heering). 
         Several European funding applications have been submitted to develop this research program.
       </p>
 
-      <h2>Research Team</h2>
+      <h3>Research Team</h3>
       <p>
         This project is conducted in collaboration with:
       </p>
       <ul style="margin-left: 20px; margin-bottom: 12px;">
         <li><strong> <a href="https://scholar.google.fr/citations?user=8F1QE-AAAAAJ&hl=fr&oi=ao" target="_blank" rel="noopener noreferrer"> Dr. Quentin Delhaye </a> </strong> - Collaborator WP1 & WP2</li>
-        <li><strong> <a href ="https://scholar.google.fr/citations?user=P_yj-HsAAAAJ&hl=fr&oi=ao"> Dr. Claire Kabdebon </a> </strong> - Collaborator WP1, WP2 & WP3</li>
-        <li><strong> <a href ="https://scholar.google.com/citations?user=xpVAdlAAAAAJ&hl=en"> Prof. Adélaïde de Heering </a> </strong> - Co-supervisor WP1, WP2 & WP3 </li>
-        <li><strong> <a href = "https://scholar.google.fr/citations?user=0cweZHkAAAAJ&hl=fr&oi=ao"> Prof. Tom Lenaerts </a> </strong> - Co-supervisor WP3</li>
+        <li><strong> <a href="https://scholar.google.fr/citations?user=P_yj-HsAAAAJ&hl=fr&oi=ao"> Dr. Claire Kabdebon </a> </strong> - Collaborator WP1, WP2 & WP3</li>
+        <li><strong> <a href="https://scholar.google.com/citations?user=xpVAdlAAAAAJ&hl=en"> Prof. Adélaïde de Heering </a> </strong> - Co-supervisor WP1, WP2 & WP3 </li>
+        <li><strong> <a href="https://scholar.google.fr/citations?user=0cweZHkAAAAJ&hl=fr&oi=ao"> Prof. Tom Lenaerts </a> </strong> - Co-supervisor WP3</li>
       </ul>
 
-      <h2>Zoo Partnerships</h2>
+      <h3>Zoo Partnerships</h3>
       <p>
         Partnerships may be established with several European zoos, including Pairi Daiza (Brugelette), 
         for which a cube prototype designed to withstand the strength of non-human primates has already been developed.
@@ -447,12 +486,12 @@
     </section>
 
     <section id="Publications">
-      <h1><span class="section-rule" aria-hidden="true"></span> Articles, Talks & posters </h1>
+      <h2><span class="section-rule" aria-hidden="true"></span> Articles, Talks & Posters</h2>
 
-      <h2><span class="section-rule" aria-hidden="true"></span> Poster presentations</h2>
+      <h3>Poster Presentations</h3>
 
       <div class="item">
-        <strong><a href="https://hal.science/hal-05463602" target="_blank" rel="noopener noreferrer">What roles do uncertainty, surprise, and arousal play in infants’ curiosity?</a></strong><br />
+        <strong><a href="https://hal.science/hal-05463602" target="_blank" rel="noopener noreferrer">What roles do uncertainty, surprise, and arousal play in infants' curiosity?</a></strong><br />
         <em>[POSTER] di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2026, January). The 16th annual BCCCD Conference - BCCCD26, Budapest, Hungary.</em>
       </div>
       
@@ -466,6 +505,7 @@
         <em>[POSTER] di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). Belgian Association for Psychological Sciences, Brussels, Belgium.</em>
       </div>
 
+      <h3>Upcoming Publications</h3>
       <p>
         An article based on Study 1 (Axis 1) is currently being written, with submission planned for July 2026. 
         In total, four articles are planned:
