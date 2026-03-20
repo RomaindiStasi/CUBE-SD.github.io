@@ -12,178 +12,275 @@
   --text:#0f172a;
   --muted:#475569;
   --border:rgba(15,23,42,0.10);
+  --shadow:0 18px 60px rgba(2,6,23,0.12);
+  --shadow-soft:0 10px 28px rgba(2,6,23,0.08);
   --accent:#2563eb;
   --accent-2:#0ea5e9;
   --radius:18px;
+  --radius-sm:14px;
   --max:1040px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
-body{
-  font-family:system-ui;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
+html{
+  scroll-behavior:smooth;
+  min-height:100%;
 }
 
-/* HERO */
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.65;
+  color:var(--text);
+
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 60%),
+    radial-gradient(1200px 600px at 80% 0%, rgba(14, 165, 233, 0.08), transparent 55%),
+    url("https://raw.githubusercontent.com/RomaindiStasi/page/main/Background_website2.svg"),
+    var(--bg);
+
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+  background-attachment:fixed;
+
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+a{color:var(--accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+a:focus-visible{
+  outline:3px solid rgba(37,99,235,0.35);
+  outline-offset:3px;
+  border-radius:10px;
+}
+
+/* HEADER */
 header{
-  padding:60px 20px;
-  text-align:center;
+  padding:64px 20px 24px;
 }
 
 .hero{
-  background:linear-gradient(135deg,#0b1220,#111b33);
-  color:white;
-  border-radius:20px;
-  padding:40px;
+  max-width:var(--max);
+  margin:0 auto;
+  background:linear-gradient(135deg, #0b1220 0%, #111b33 55%, #0b1220 100%);
+  color:#fff;
+  border-radius:calc(var(--radius) + 8px);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,0.10);
+  overflow:hidden;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(900px 380px at 15% 20%, rgba(37,99,235,0.32), transparent 60%),
+    radial-gradient(700px 320px at 85% 10%, rgba(14,165,233,0.22), transparent 55%),
+    radial-gradient(600px 300px at 70% 90%, rgba(37,99,235,0.16), transparent 60%);
+  pointer-events:none;
+  opacity:0.95;
+}
+
+.hero-inner{
+  position:relative;
+  padding:42px 30px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  align-items:center;
+  text-align:center;
 }
 
 .hero h1{
-  font-size:2.5rem;
+  font-size:clamp(2rem, 4vw, 3.2rem);
+  font-weight:750;
+  letter-spacing:-0.02em;
+  margin-bottom:8px;
 }
 
 .hero p{
-  opacity:.85;
+  color:rgba(255,255,255,0.86);
+  font-size:1.1rem;
+  font-weight:450;
+  max-width:80ch;
+  margin:0 auto;
+}
+
+.hero-badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.92);
+  font-size:0.95rem;
+  white-space:nowrap;
+  backdrop-filter:blur(10px);
+}
+
+.badge-dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow:0 0 0 4px rgba(37,99,235,0.16);
 }
 
 /* NAV */
 nav{
   position:sticky;
   top:0;
-  background:white;
+  z-index:1000;
+  backdrop-filter:blur(10px);
+  background:rgba(245, 247, 251, 0.78);
   border-bottom:1px solid var(--border);
-  z-index:100;
 }
 
 .nav-inner{
   max-width:var(--max);
-  margin:auto;
+  margin:0 auto;
+  padding:10px 14px;
   display:flex;
+  align-items:center;
   justify-content:center;
-  gap:12px;
-  padding:10px;
+  gap:10px;
   flex-wrap:wrap;
 }
 
 .nav-inner a{
-  padding:8px 12px;
+  padding:10px 12px;
   border-radius:999px;
-  font-weight:600;
-  text-decoration:none;
-  color:var(--text);
+  color:#0b1220;
+  font-weight:700;
+  font-size:0.95rem;
+  transition:background 0.18s ease, transform 0.18s ease;
 }
 
 .nav-inner a:hover{
-  background:#eef2ff;
+  background:rgba(37,99,235,0.10);
+  transform:translateY(-1px);
+  color:#0b1220;
+  text-decoration:none;
 }
 
-/* SECTIONS */
+.nav-inner::-webkit-scrollbar{
+  height:6px;
+}
+
+.nav-inner::-webkit-scrollbar-thumb{
+  background:rgba(15, 23, 42, 0.20);
+  border-radius:999px;
+}
+
+.nav-inner::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+/* LAYOUT */
 .container{
   max-width:var(--max);
-  margin:auto;
-  padding:20px;
+  margin:26px auto 60px;
+  padding:0 14px;
+  flex:1;
 }
 
 section{
-  background:white;
-  border-radius:var(--radius);
-  padding:25px;
-  margin-top:20px;
-  border:1px solid var(--border);
-}
-
-h2{
-  margin-bottom:15px;
-}
-
-h3{
-  margin-top:20px;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  margin-top:20px;
-}
-
-.card{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:15px;
+  margin-top:18px;
+  padding:28px;
   background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-soft);
 }
 
-/* TEAM */
-.team-member{
-  text-align:center;
+section h2{
+  font-size:1.55rem;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.role{
-  color:var(--accent);
+.section-rule{
+  height:10px;
+  width:10px;
+  border-radius:999px;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow:0 0 0 5px rgba(37,99,235,0.10);
+}
+
+section h3{
+  margin-top:18px;
+  margin-bottom:10px;
+  font-size:1.15rem;
   font-weight:600;
-  font-size:0.9rem;
+  letter-spacing:-0.01em;
 }
+
+section p{
+  margin-bottom:12px;
+}
+
+.muted{color:var(--muted);}
 
 /* BUTTON */
 .btn{
-  display:inline-block;
-  padding:12px 24px;
-  background:var(--accent);
-  color:white;
-  text-decoration:none;
-  border-radius:10px;
-  font-weight:600;
-  transition:background 0.3s;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg, #ffffff, #fbfcfe);
+  font-weight:700;
+  color:#0b1220;
+  transition:transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+  box-shadow:0 6px 16px rgba(2,6,23,0.06);
 }
 
 .btn:hover{
-  background:var(--accent-2);
+  transform:translateY(-1px);
+  box-shadow:0 10px 20px rgba(2,6,23,0.10);
+  border-color:rgba(37,99,235,0.25);
+  text-decoration:none;
 }
 
-/* FORM */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:20px;
-}
-
-input, select, textarea{
-  padding:10px;
-  border-radius:10px;
-  border:1px solid var(--border);
-}
-
-button{
-  padding:10px;
-  border:none;
-  background:var(--accent);
-  color:white;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-button:hover{
-  background:var(--accent-2);
-}
-
-footer{
-  text-align:center;
-  padding:20px;
-  color:var(--muted);
-}
-
-/* EXTRA STYLES ADDED WITHOUT CHANGING YOUR BASE DESIGN */
+/* TEXT HELPERS */
 .lead{
   font-size:1.05rem;
   color:var(--muted);
 }
 
+.small{
+  font-size:0.94rem;
+  color:var(--muted);
+}
+
+.center{
+  text-align:center;
+}
+
+/* KPI GRID */
 .kpi-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -192,10 +289,11 @@ footer{
 }
 
 .kpi{
-  border:1px solid var(--border);
-  border-radius:14px;
   padding:18px;
-  background:linear-gradient(180deg,#ffffff,#f8fbff);
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.96));
+  box-shadow:0 10px 18px rgba(2,6,23,0.05);
   text-align:center;
 }
 
@@ -206,12 +304,49 @@ footer{
   margin-bottom:6px;
 }
 
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+
+.two-col{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+
+/* CARD / ITEM STYLE */
+.card{
+  padding:16px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.96));
+  box-shadow:0 10px 18px rgba(2,6,23,0.05);
+  transition:transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 32px rgba(2,6,23,0.10);
+  border-color:rgba(37,99,235,0.22);
+}
+
+.card h3{
+  margin-top:0;
+}
+
+/* FIGURE */
 .figure{
   margin-top:20px;
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:var(--radius-sm);
   overflow:hidden;
   background:#fff;
+  box-shadow:0 10px 18px rgba(2,6,23,0.05);
 }
 
 .figure img{
@@ -227,21 +362,17 @@ footer{
   color:var(--muted);
 }
 
+/* NOTE */
 .note{
   margin-top:16px;
   padding:14px 16px;
   border-left:4px solid var(--accent);
   background:#f8fbff;
   border-radius:10px;
+  color:var(--text);
 }
 
-.two-col{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:20px;
-  margin-top:20px;
-}
-
+/* LISTS */
 .step-list{
   margin-top:12px;
   padding-left:20px;
@@ -251,18 +382,99 @@ footer{
   margin-bottom:8px;
 }
 
-.small{
-  font-size:0.94rem;
-  color:var(--muted);
-}
-
-.center{
+/* TEAM */
+.team-member{
   text-align:center;
 }
 
-@media (max-width:700px){
-  .hero h1{
-    font-size:2rem;
+.role{
+  color:var(--accent);
+  font-weight:700;
+  font-size:0.9rem;
+}
+
+/* FORM */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:20px;
+}
+
+input, select, textarea{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  font:inherit;
+  color:var(--text);
+}
+
+input:focus, select:focus, textarea:focus{
+  outline:3px solid rgba(37,99,235,0.18);
+  border-color:rgba(37,99,235,0.25);
+}
+
+button{
+  padding:12px 16px;
+  border:none;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:white;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow:0 10px 20px rgba(37,99,235,0.18);
+}
+
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 24px rgba(37,99,235,0.22);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  .hero h1{font-size:clamp(1.5rem, 5vw, 2rem);}
+  .hero p{font-size:0.95rem;}
+  section{padding:20px 16px;}
+  section h2{font-size:1.35rem;}
+  section h3{font-size:1.05rem;}
+}
+
+@media (max-width:480px){
+  .hero-inner{padding:28px 18px;}
+  section{padding:16px 12px;}
+  .nav-inner{
+    max-width:100%;
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    padding:8px 10px 10px 10px;
+    gap:8px;
+    padding-right:30px;
+    scrollbar-width:thin;
+  }
+
+  .nav-inner a{
+    flex:0 0 auto;
+    white-space:nowrap;
+    padding:8px 10px;
+    font-size:0.85rem;
+  }
+
+  .badge{
+    font-size:0.8rem;
+    padding:8px 10px;
   }
 }
 </style>
@@ -272,8 +484,19 @@ footer{
 
 <header>
   <div class="hero">
-    <h1>iFACE</h1>
-    <p>Infant-Facial-Analysis-for-Classification-of-Emotion</p>
+    <div class="hero-inner">
+      <div>
+        <h1>iFACE</h1>
+        <p>Infant-Facial-Analysis-for-Classification-of-Emotion</p>
+      </div>
+
+      <div class="hero-badges" aria-label="Key Themes">
+        <span class="badge"><span class="badge-dot"></span> Infant facial expressions</span>
+        <span class="badge"><span class="badge-dot"></span> Surprise detection</span>
+        <span class="badge"><span class="badge-dot"></span> Landmark analysis</span>
+        <span class="badge"><span class="badge-dot"></span> Reproducible pipeline</span>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -289,9 +512,8 @@ footer{
 
 <main class="container">
 
-<!-- ABOUT -->
 <section id="About">
-  <h2>Project Overview</h2>
+  <h2><span class="section-rule" aria-hidden="true"></span> Project Overview</h2>
 
   <p class="lead">
     The <strong>iFACE project</strong> is part of the broader CUBE-SD program and aims to improve the automated analysis of infant facial expressions, with a particular focus on expressions related to <strong>surprise</strong>.
@@ -329,9 +551,8 @@ footer{
   </div>
 </section>
 
-<!-- METHODS -->
 <section id="Method">
-  <h2>Methods</h2>
+  <h2><span class="section-rule" aria-hidden="true"></span> Methods</h2>
 
   <p>
     The current workflow starts from an infant facial-expression image dataset and uses a sequence of processing steps designed to make classification more robust and more interpretable.
@@ -412,9 +633,8 @@ footer{
   </div>
 </section>
 
-<!-- RESULTS -->
 <section id="Results">
-  <h2>Results and Pipeline Evolution</h2>
+  <h2><span class="section-rule" aria-hidden="true"></span> Results and Pipeline Evolution</h2>
 
   <p>
     The figures below document the different stages of the current iFACE pipeline: facial landmarking, triangulation refinement, first classification results, overfitting analysis, and later updated results.
@@ -534,9 +754,8 @@ footer{
   </div>
 </section>
 
-<!-- TEAM -->
 <section id="Team">
-  <h2>Team</h2>
+  <h2><span class="section-rule" aria-hidden="true"></span> Team</h2>
 
   <p>
     The iFACE project is currently presented here as part of the broader research program led within the CUBE-SD framework.
@@ -544,7 +763,6 @@ footer{
 
   <h3>Project leads and collaborators</h3>
   <div class="grid">
-
     <div class="card team-member">
       <h3>Romain di Stasi</h3>
       <div class="role">Project lead</div>
@@ -562,7 +780,6 @@ footer{
       <h3>Adélaïde de Heering</h3>
       <div class="role">Collaborator</div>
     </div>
-
   </div>
 
   <div class="note">
@@ -570,9 +787,8 @@ footer{
   </div>
 </section>
 
-<!-- CONTRIBUTION -->
 <section id="Contribution">
-  <h2>Contribute</h2>
+  <h2><span class="section-rule" aria-hidden="true"></span> Contribute</h2>
 
   <p>
     We welcome contributions to the iFACE project. Contributions may include helping improve the codebase, sharing ideas for more robust infant-adapted facial analysis, discussing methodological issues, or supporting future development of the dataset and pipeline.
@@ -587,7 +803,7 @@ footer{
     <a href="mailto:romain.di-stasi@outlook.com">romain.di-stasi@outlook.com</a>.
   </p>
 
-  <div style="margin-top: 30px; text-align:center;">
+  <div style="margin-top:30px; text-align:center;">
     <a class="btn" href="https://romaindistasi.github.io/CUBE-SD.github.io">Back to CUBE-SD Website</a>
   </div>
 </section>
