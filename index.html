@@ -1,1 +1,522 @@
-<img src="Images/Cube_Infant_v3.jpg" alt="Cube V3 used in Infant Studies (WP1)">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> CUBE-SD — Curiosity, Uncertainty & Bayesian Exploration in Surprise-Driven Development </title>
+
+  <!-- CSS -->
+  <style>
+  :root{
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: rgba(15, 23, 42, 0.10);
+    --shadow: 0 18px 60px rgba(2, 6, 23, 0.12);
+    --shadow-soft: 0 10px 28px rgba(2, 6, 23, 0.08);
+
+    --accent: #2563eb;
+    --accent-2: #0ea5e9;
+
+    --radius: 18px;
+    --radius-sm: 14px;
+    --max: 1040px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html{
+    scroll-behavior: smooth;
+    min-height: 100%;
+  }
+
+  body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    color: var(--text);
+
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 60%),
+      radial-gradient(1200px 600px at 80% 0%, rgba(14, 165, 233, 0.08), transparent 55%),
+      url("https://raw.githubusercontent.com/RomaindiStasi/page/main/Background_website2.svg"),
+      var(--bg);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible{
+    outline: 3px solid rgba(37,99,235,0.35);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+
+  /* Header */
+  header{
+    padding: 64px 20px 24px;
+  }
+
+  .hero{
+    max-width: var(--max);
+    margin: 0 auto;
+    background: linear-gradient(135deg, #0b1220 0%, #111b33 55%, #0b1220 100%);
+    color: #fff;
+    border-radius: calc(var(--radius) + 8px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.10);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero::before{
+    content:"";
+    position: absolute;
+    inset:-2px;
+    background:
+      radial-gradient(900px 380px at 15% 20%, rgba(37,99,235,0.32), transparent 60%),
+      radial-gradient(700px 320px at 85% 10%, rgba(14,165,233,0.22), transparent 55%),
+      radial-gradient(600px 300px at 70% 90%, rgba(37,99,235,0.16), transparent 60%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .hero-inner{
+    position: relative;
+    padding: 42px 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero h1{
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero p{
+    color: rgba(255,255,255,0.86);
+    font-size: 1.15rem;
+    font-weight: 450;
+    max-width: 80ch;
+    margin: 0 auto;
+  }
+
+  .hero-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.92);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+  }
+
+  .badge-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
+  }
+  
+  /* Nav */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(245, 247, 251, 0.78);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-inner a{
+    padding: 10px 12px;
+    border-radius: 999px;
+    color: #0b1220;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .nav-inner a:hover{
+    background: rgba(37,99,235,0.10);
+    transform: translateY(-1px);
+    color: #0b1220;
+    text-decoration: none;
+  }
+
+  /* Layout */
+  .container{
+    max-width: var(--max);
+    margin: 26px auto 60px;
+    padding: 0 14px;
+    flex: 1;
+  }
+
+  section{
+    margin-top: 18px;
+    padding: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  section h2{
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-rule{
+    height: 10px;
+    width: 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 5px rgba(37,99,235,0.10);
+  }
+
+  section h3{
+    margin-top: 18px;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .muted{ color: var(--muted); }
+
+  section p{ margin-bottom: 12px; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, #ffffff, #fbfcfe);
+    font-weight: 700;
+    color: #0b1220;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+    box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  }
+
+  .btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(2,6,23,0.10);
+    border-color: rgba(37,99,235,0.25);
+    text-decoration: none;
+  }
+
+  /* Pills list */
+  .pill-list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+
+  .pill{
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(37,99,235,0.18);
+    background: rgba(37,99,235,0.06);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .project-logo{
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .project-logo img{
+    max-width: 300px;
+    height: auto;
+  }
+
+  /* Cube Image Container */
+  .cube-image-container{
+    text-align: center;
+    margin: 24px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(14,165,233,0.03));
+    border: 2px dashed rgba(37,99,235,0.18);
+    border-radius: var(--radius-sm);
+  }
+
+  .cube-image-container img{
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cube-image-placeholder{
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
+  footer{
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px){
+    .hero h1{ font-size: clamp(1.5rem, 5vw, 2rem); }
+    .hero p{ font-size: 0.95rem; }
+    section{ padding: 20px 16px; }
+    .project-logo img{ max-width: 200px; }
+    .cube-image-container img{ max-width: 300px; }
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>CUBE-SD</h1>
+          <p>Curiosity, Uncertainty, and their Biological & Emotional mechanisms – Investigating how uncertainty drives curiosity across animal Species and human Development</p>
+        </div>
+
+        <div class="hero-badges" aria-label="Key Themes">
+          <span class="badge"><span class="badge-dot"></span> Curiosity & Uncertainty</span>
+          <span class="badge"><span class="badge-dot"></span> Human & Non-Human Primates</span>
+          <span class="badge"><span class="badge-dot"></span> Cognitive Development</span>
+          <span class="badge"><span class="badge-dot"></span> Comparative Approach</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#About">About</a>
+      <a href="#i-Face_Project">I-FACE Project</a>
+      <a href="#Team">Team</a>
+      <a href="#Publications">Publications</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <section id="About">
+      <h2><span class="section-rule" aria-hidden="true"></span> Project Overview</h2>
+
+      <div class="project-logo">
+        <img src="https://raw.githubusercontent.com/RomaindiStasi/page/main/Logo/Logo_CUBE_SD.svg" alt="CUBE-SD Logo">
+      </div>
+
+      <p>
+        The <strong>CUBE-SD</strong> (Curiosity, Uncertainty & Bayesian Exploration in Surprise-Driven Development) 
+        project investigates how uncertainty shapes curiosity in human infants and non-human primates, 
+        and how this process supports exploration and learning.
+      </p>
+
+      <p>
+        The CUBE-SD research focuses on the relationship between uncertainty, surprise, arousal, and curiosity in infants. 
+        Building on the work of Kidd et al. (2012, 2014), who demonstrated in 8-month-old infants that they are more attentive 
+        to sequences that are neither too predictable nor too uncertain—a phenomenon the authors call the 
+        <strong>Goldilocks effect</strong>—this research program is embedded within the CUBE-SD project.
+      </p>
+
+      <p>
+        By combining behavioral, physiological, and comparative approaches, the project examines whether individuals 
+        preferentially attend to information of intermediate uncertainty. Through a cross-species framework, 
+        it aims to clarify the mechanisms through which curiosity emerges and to better understand its 
+        developmental and evolutionary foundations.
+      </p>
+    </section>
+
+    <section id="structure">
+      <h2><span class="section-rule" aria-hidden="true"></span> Research Structure</h2>
+
+      <p>
+        The CUBE-SD project is structured into three main research axes, for which I have secured funding for the 
+        first axis and am currently seeking funding for the other two.
+      </p>
+
+      <h3>Axis 1: Infant Studies (Funded) — WP1</h3>
+      <p>
+        Funded by the Wallonie-Bruxelles International (WBI) excellence fellowship (R. di Stasi) and the Consolidate ARC (A. de Heering), this axis evaluates how 
+        environmental predictability influences curiosity in infants aged 18-24 months, as well as the mechanisms 
+        explaining the link between uncertainty and curiosity. This axis is divided into two studies.
+      </p>
+
+      <div class="cube-image-container">
+        <!-- Replace the src with your actual cube image URL for WP1 -->
+        <img src="https://via.placeholder.com/400x300/2563eb/ffffff?text=Cube+WP1+-+Infant+Studies" alt="Cube used in Infant Studies (WP1)">
+        <p class="cube-image-placeholder">Photo du cube utilisé pour les études avec les bébés (WP1)</p>
+      </div>
+
+      <h3>Axis 2: Comparative Studies with Non-Human Primates — WP2</h3>
+      <p>
+        This axis aims to assess whether the Goldilocks effect is specific to humans or constitutes a more general 
+        adaptation observable in other non-human primates. Partnerships with several European zoos are being 
+        established to test multiple non-human primate species and trace the phylogeny of the Goldilocks effect.
+      </p>
+
+      <div class="cube-image-container">
+        <!-- Replace the src with your actual cube image URL for WP2 -->
+        <img src="https://via.placeholder.com/400x300/0ea5e9/ffffff?text=Cube+WP2+-+Primates" alt="Cube prototype for Non-Human Primates (WP2)">
+        <p class="cube-image-placeholder">Photo du cube prototype pour les primates non-humains (WP2)</p>
+      </div>
+
+      <h3>Axis 3: Theoretical Modeling and Artificial Intelligence — WP3</h3>
+      <p>
+        This axis will test a theoretical model of curiosity developed from the results of Axes 1 and 2. 
+        The model will first be formalized using structural equation modeling (SEM), then simulated on an 
+        artificial intelligence system using reinforcement learning methods.
+      </p>
+
+      <div style="margin-top: 20px;">
+        <a class="btn" href="about.html">Learn More</a>
+        <a class="btn" href="iface.html">I-FACE Project</a>
+      </div>
+    </section>
+
+    <section id="key-findings">
+      <h2><span class="section-rule" aria-hidden="true"></span> Key Methodologies</h2>
+
+      <ul class="pill-list">
+        <li class="pill">Behavioral Studies</li>
+        <li class="pill">Physiological Measures (EDA, HRV)</li>
+        <li class="pill">Automatic Facial Expression Detection</li>
+        <li class="pill">Comparative Approach</li>
+        <li class="pill">Bayesian Modeling</li>
+        <li class="pill">Artificial Intelligence</li>
+        <li class="pill">Reinforcement Learning</li>
+      </ul>
+
+      <p style="margin-top: 20px;">
+        The project employs wearable devices (Empatica EmbracePlus) to measure electrodermal activity (EDA) 
+        as an index of arousal and heart rate variability (HRV) as an index of attention. 
+        An artificial intelligence tool developed with Dr. Fabien Cerrotti, <strong>iFACE</strong> 
+        (Infant Facial Analysis for the Classification of Emotion), enables automatic detection of surprise 
+        facial expressions.
+      </p>
+    </section>
+
+    <section id="Team">
+      <h2><span class="section-rule" aria-hidden="true"></span> Collaborations & Funding</h2>
+
+      <h3>Funding</h3>
+      <p>
+        <strong>Axis 1</strong> is funded by a Wallonie-Bruxelles International (WBI) excellence fellowship (R. di Stasi) and the Consolidate ARC (A. de Heering). 
+        Several European funding applications have been submitted to develop this research program.
+      </p>
+
+      <h3>Research Team</h3>
+      <p>
+        This project is conducted in collaboration with:
+      </p>
+      <ul style="margin-left: 20px; margin-bottom: 12px;">
+        <li><strong> <a href="https://scholar.google.fr/citations?user=8F1QE-AAAAAJ&hl=fr&oi=ao" target="_blank" rel="noopener noreferrer"> Dr. Quentin Delhaye </a> </strong> - Collaborator WP1 & WP2</li>
+        <li><strong> <a href="https://scholar.google.fr/citations?user=P_yj-HsAAAAJ&hl=fr&oi=ao"> Dr. Claire Kabdebon </a> </strong> - Collaborator WP1, WP2 & WP3</li>
+        <li><strong> <a href="https://scholar.google.com/citations?user=xpVAdlAAAAAJ&hl=en"> Prof. Adélaïde de Heering </a> </strong> - Co-supervisor WP1, WP2 & WP3 </li>
+        <li><strong> <a href="https://scholar.google.fr/citations?user=0cweZHkAAAAJ&hl=fr&oi=ao"> Prof. Tom Lenaerts </a> </strong> - Co-supervisor WP3</li>
+      </ul>
+
+      <h3>Zoo Partnerships</h3>
+      <p>
+        Partnerships may be established with several European zoos, including Pairi Daiza (Brugelette), 
+        for which a cube prototype designed to withstand the strength of non-human primates has already been developed.
+      </p>
+
+      <div style="margin-top: 20px;">
+        <a class="btn" href="team.html">Meet the Team</a>
+        <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Lab Website</a>
+      </div>
+    </section>
+
+    <section id="Publications">
+      <h2><span class="section-rule" aria-hidden="true"></span> Articles, Talks & Posters</h2>
+
+      <h3>Poster Presentations</h3>
+
+      <div class="item">
+        <strong><a href="https://hal.science/hal-05463602" target="_blank" rel="noopener noreferrer">What roles do uncertainty, surprise, and arousal play in infants' curiosity?</a></strong><br />
+        <em>[POSTER] di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2026, January). The 16th annual BCCCD Conference - BCCCD26, Budapest, Hungary.</em>
+      </div>
+      
+      <div class="item">
+        <strong><a href="https://hal.science/hal-05371654" target="_blank" rel="noopener noreferrer">How do uncertainty and surprise shape exploration in infants?  </a></strong><br />
+        <em>[POSTER] di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, November). NeuroCog conference, Brussels, Belgium.</em>
+      </div>
+
+      <div class="item">
+        <strong><a href="https://hal.science/hal-05086978" target="_blank" rel="noopener noreferrer">Curiosity in the face of the uncertainty: a developmental and comparative approach between infants and non-human primates.  </a></strong><br />
+        <em>[POSTER] di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). Belgian Association for Psychological Sciences, Brussels, Belgium.</em>
+      </div>
+
+      <h3>Upcoming Publications</h3>
+      <p>
+        An article based on Study 1 (Axis 1) is currently being written, with submission planned for July 2026. 
+        In total, four articles are planned:
+      </p>
+      <ul style="margin-left: 20px; margin-bottom: 12px;">
+        <li>Two articles for Axis 1 (one for each study)</li>
+        <li>One article for Axis 2 (comparative studies)</li>
+        <li>One article for Axis 3 (theoretical modeling and AI)</li>
+      </ul>
+    </section>
+  </div>
+  <footer>
+    <p>&copy; 2025-2026 Romain di Stasi and Adélaïde de Heering. All rights reserved.</p>
+  </footer>
+</body>
+</html>
