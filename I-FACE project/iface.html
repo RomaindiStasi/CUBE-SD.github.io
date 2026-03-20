@@ -1,1 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> CUBE-SD — WP1 - iFACE-infant-Facial-Analysis-for-Classification-of-Emotion </title>
 
+  <!-- CSS -->
+  <style>
+  :root{
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: rgba(15, 23, 42, 0.10);
+    --shadow: 0 18px 60px rgba(2, 6, 23, 0.12);
+    --shadow-soft: 0 10px 28px rgba(2, 6, 23, 0.08);
+
+    --accent: #2563eb;
+    --accent-2: #0ea5e9;
+
+    --radius: 18px;
+    --radius-sm: 14px;
+    --max: 1040px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html{
+    scroll-behavior: smooth;
+    min-height: 100%;
+  }
+
+  body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    color: var(--text);
+
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 60%),
+      radial-gradient(1200px 600px at 80% 0%, rgba(14, 165, 233, 0.08), transparent 55%),
+      url("https://raw.githubusercontent.com/RomaindiStasi/page/main/Background_website2.svg"),
+      var(--bg);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible{
+    outline: 3px solid rgba(37,99,235,0.35);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+
+  /* Header */
+  header{
+    padding: 64px 20px 24px;
+  }
+
+  .hero{
+    max-width: var(--max);
+    margin: 0 auto;
+    background: linear-gradient(135deg, #0b1220 0%, #111b33 55%, #0b1220 100%);
+    color: #fff;
+    border-radius: calc(var(--radius) + 8px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.10);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero::before{
+    content:"";
+    position: absolute;
+    inset:-2px;
+    background:
+      radial-gradient(900px 380px at 15% 20%, rgba(37,99,235,0.32), transparent 60%),
+      radial-gradient(700px 320px at 85% 10%, rgba(14,165,233,0.22), transparent 55%),
+      radial-gradient(600px 300px at 70% 90%, rgba(37,99,235,0.16), transparent 60%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .hero-inner{
+    position: relative;
+    padding: 42px 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero h1{
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero p{
+    color: rgba(255,255,255,0.86);
+    font-size: 1.15rem;
+    font-weight: 450;
+    max-width: 80ch;
+    margin: 0 auto;
+  }
+
+  .hero-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.92);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+  }
+
+  .badge-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
+  }
+  
+  /* Nav */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(245, 247, 251, 0.78);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-inner a{
+    padding: 10px 12px;
+    border-radius: 999px;
+    color: #0b1220;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .nav-inner a:hover{
+    background: rgba(37,99,235,0.10);
+    transform: translateY(-1px);
+    color: #0b1220;
+    text-decoration: none;
+  }
+
+  /* Layout */
+  .container{
+    max-width: var(--max);
+    margin: 26px auto 60px;
+    padding: 0 14px;
+    flex: 1;
+  }
+
+  section{
+    margin-top: 18px;
+    padding: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  section h2{
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-rule{
+    height: 10px;
+    width: 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 5px rgba(37,99,235,0.10);
+  }
+
+  section h3{
+    margin-top: 18px;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .muted{ color: var(--muted); }
+
+  section p{ margin-bottom: 12px; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, #ffffff, #fbfcfe);
+    font-weight: 700;
+    color: #0b1220;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+    box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  }
+
+  .btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(2,6,23,0.10);
+    border-color: rgba(37,99,235,0.25);
+    text-decoration: none;
+  }
+
+  /* Pills list */
+  .pill-list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+
+  .pill{
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(37,99,235,0.18);
+    background: rgba(37,99,235,0.06);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .project-logo{
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .project-logo img{
+    max-width: 300px;
+    height: auto;
+  }
+
+  /* Cube Image Container */
+  .cube-image-container{
+    text-align: center;
+    margin: 24px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(14,165,233,0.03));
+    border: 2px dashed rgba(37,99,235,0.18);
+    border-radius: var(--radius-sm);
+  }
+
+  .cube-image-container img{
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cube-image-placeholder{
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
+  /* Publication Items */
+  .publication-item{
+    padding: 20px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(14,165,233,0.02));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .publication-item:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+    border-color: rgba(37,99,235,0.20);
+  }
+
+  .publication-item:last-child{
+    margin-bottom: 0;
+  }
+
+  .publication-title{
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .publication-title a{
+    color: var(--accent);
+    transition: color 0.2s ease;
+  }
+
+  .publication-title a:hover{
+    color: var(--accent-2);
+  }
+
+  .publication-meta{
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .publication-type{
+    display: inline-block;
+    padding: 4px 10px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background: rgba(37,99,235,0.10);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Method Grid & Cards */
+  .method-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .method-card{
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(14,165,233,0.02));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .method-card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+    border-color: rgba(37,99,235,0.20);
+  }
+
+  .method-card img{
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 14px;
+  }
+
+  .method-card p{
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Team Members */
+  .team-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .team-member{
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(14,165,233,0.02));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+  }
+
+  .team-member:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+    border-color: rgba(37,99,235,0.20);
+  }
+
+  .team-member h3{
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+
+  .team-member .role{
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .team-member p{
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .team-member a{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  /* Contribution Section */
+  .contribution-card{
+    padding: 20px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(14,165,233,0.02));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .contribution-card:last-child{
+    margin-bottom: 0;
+  }
+
+  .contribution-card h3{
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contribution-icon{
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  footer{
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px){
+    .hero h1{ font-size: clamp(1.5rem, 5vw, 2rem); }
+    .hero p{ font-size: 0.95rem; }
+    section{ padding: 20px 16px; }
+    .project-logo img{ max-width: 200px; }
+    .cube-image-container img{ max-width: 300px; }
+    .publication-item{ padding: 16px; }
+    .method-grid{ grid-template-columns: 1fr; }
+    .team-grid{ grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>iFACE</h1>
+          <p>infant-Facial-Analysis-for-Classification-of-Emotion</p>
+        </div>
+
+        <div class="hero-badges" aria-label="Key Themes">
+          <span class="badge"><span class="badge-dot"></span> Automated facial expression analyses</span>
+          <span class="badge"><span class="badge-dot"></span> Infant's facial expression</span>
+          <span class="badge"><span class="badge-dot"></span> Surprise </span>
+          <span class="badge"><span class="badge-dot"></span> Convolutional Neural Network (CNN) </span>
+          <span class="badge"><span class="badge-dot"></span> Computer vision </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#About">About</a>
+    <a href="#Method">Methods</a>
+    <a href="#Team">Team</a>
+    <a href="#Contribution">How to contribute</a>
+  </div>
+</nav>
+
+  <main class="container">
+
+  <section id="About">
+      <h2><span class="section-rule" aria-hidden="true"></span> Project Overview</h2>
+
+      <div class="project-logo">
+        <img src="https://raw.githubusercontent.com/RomaindiStasi/page/main/Logo/Logo_CUBE_SD.svg" alt="CUBE-SD Logo">
+      </div>
+
+ <p>
+  The <strong>iFACE project</strong> is part of the broader CUBE-SD program and builds upon the PhD research of Romain di Stasi. 
+  This work focused on how to reliably measure surprise in infants within social contexts, combining both physiological measures 
+  and behavioral data. Behavioral responses were assessed using a multimethod approach, including manual coding (via The Observer XT &copy;) 
+  and automated procedures designed to quantify facial expressions of surprise.
+  The corresponding article, currently under revision in <em>Acta Psychologica</em>, is available as a preprint on SSRN and PsyArXiv (see links below).
+</p>
+
+<p>
+  In this research, Dr. Romain di Stasi and Dr. Fabien Cerrotti developed three complementary algorithms, implemented within the BabyFace software &copy;, 
+  to detect and quantify facial expressions of surprise. These algorithms are grounded in well-established Facial Action Coding System (FACS) markers 
+  characterizing surprise expressions.
+</p>
+
+<p>
+  Specifically, the models target three key facial components:
+  (1) eyebrow raising (Action Units AU1 and AU2), 
+  (2) eye widening (AU5), and 
+  (3) mouth opening (AU26 and AU27). 
+  These features were grouped into three functional facial regions: the upper face (eyebrows and forehead: AU1 &amp; AU2), 
+  the eye region (AU5), and the lower face (mouth opening: AU26 and AU27). 
+  This regional approach allows for a more robust and interpretable quantification of surprise-related facial dynamics in infants.
+</p>
+
+<p>
+  The iFACE project aims to provide an open-access implementation of these algorithms. The computational framework is primarily based on Python, 
+  relying on several key libraries for computer vision and machine learning (e.g., OpenCV, deep learning frameworks, and facial landmark detection tools), 
+  with the objective of ensuring reproducibility, scalability, and accessibility for the research community.
+</p>
+    </section>
+  
+  <section id="item">
+  <h2><span class="section-rule" aria-hidden="true"></span> Preprints</h2>
+
+  <div class="publication-item">
+    <div class="publication-title">
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6153066"
+         target="_blank" rel="noopener noreferrer">
+        Unveiling Infant Surprise in a Social Context: A Multidimensional Analysis of Physiological, Behavioural, and Facial Expression Markers.
+      </a>
+    </div>
+    <div class="publication-meta">
+      <span class="publication-type">PREPRINT</span><br />
+      <strong>di Stasi, R., Cerrotti, F., Esseily, R. &amp; Rat-Fischer, L. (2026)</strong><br />
+      Preprint on SSRN. An alternate version is available on OSF:
+      <a href="https://doi.org/10.31234/osf.io/kshw3_v1" target="_blank" rel="noopener noreferrer">
+        https://doi.org/10.31234/osf.io/kshw3_v1
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="Method">
+  <h2><span class="section-rule" aria-hidden="true"></span> Methods</h2>
+
+  <p>
+    The iFACE project relies on a multidimensional methodological approach combining behavioral coding 
+    and automated facial analysis to study infant emotional expressions, with a particular focus on surprise.
+  </p>
+
+  <p>
+    The training dataset is based on the work of Webb et al. (2017), who compiled a set of infant facial expressions 
+    categorized into six prototypical emotions (e.g., surprise, joy, sadness). While the original dataset included 
+    154 unique images, the final dataset used in our analyses consisted of 687 image files, including multiple variants 
+    (e.g., different crops, resolutions, or augmentations).
+  </p>
+
+  <p>
+    For model development, the dataset was split into a training set (80%, n = 552 images) and a validation set 
+    (20%, n = 138 images). This split allowed us to evaluate model performance while limiting overfitting.
+  </p>
+
+  <p>
+    To assess model robustness, we implemented an overfitting evaluation strategy based on performance metrics. 
+    A high risk of overfitting was identified when the support was low (&lt; 10) and F1-scores exceeded 0.90, 
+    while intermediate thresholds defined moderate risk. Training configurations were iteratively adjusted 
+    to encourage the learning of invariant features and improve generalization.
+  </p>
+
+  <div class="method-grid">
+
+    <div class="method-card">
+      <img src="https://via.placeholder.com/400x300/e0e7ff/2563eb?text=Dataset+Example" alt="Infant facial expression dataset example">
+      <p>Example of infant facial expressions from the dataset (Webb et al., 2017).</p>
+    </div>
+
+    <div class="method-card">
+      <img src="https://via.placeholder.com/400x300/dbeafe/0ea5e9?text=Data+Split" alt="Training and validation split">
+      <p>Training (80%) and validation (20%) dataset split.</p>
+    </div>
+
+    <div class="method-card">
+      <img src="https://via.placeholder.com/400x300/e0e7ff/2563eb?text=Overfitting+Evaluation" alt="Overfitting evaluation">
+      <p>Overfitting evaluation based on support and F1-score thresholds.</p>
+    </div>
+
+    <div class="method-card">
+      <img src="https://via.placeholder.com/400x300/dbeafe/0ea5e9?text=Model+Pipeline" alt="Model pipeline">
+      <p>Overview of the iFACE processing pipeline (feature extraction and classification).</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="Team">
+  <h2><span class="section-rule" aria-hidden="true"></span> Team</h2>
+
+  <p>
+    The iFACE project brings together expertise from developmental psychology, computer vision, 
+    and machine learning to advance automated facial expression analysis in infants.
+  </p>
+
+  <div class="team-grid">
+
+    <div class="team-member">
+      <h3>Dr. Romain di Stasi</h3>
+      <span class="role">Principal Investigator</span>
+      <p>Developmental Psychology & Behavioral Neuroscience</p>
+      <p>Université Paris Cité</p>
+      <a href="https://github.com/RomaindiStasi" target="_blank" rel="noopener noreferrer">
+        🔗 GitHub Profile
+      </a>
+    </div>
+
+    <div class="team-member">
+      <h3>Dr. Fabien Cerrotti</h3>
+      <span class="role">Co-Investigator</span>
+      <p>Computer Vision & Machine Learning</p>
+      <p>Algorithm Development</p>
+    </div>
+
+    <div class="team-member">
+      <h3>Dr. Lauriane Rat-Fischer</h3>
+      <span class="role">Collaborator</span>
+      <p>Developmental Psychology</p>
+      <p>Université Paris Cité</p>
+    </div>
+
+    <div class="team-member">
+      <h3>Dr. Réjane Esseily</h3>
+      <span class="role">Collaborator</span>
+      <p>Developmental Psychology</p>
+      <p>Université Paris Cité</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="Contribution">
+  <h2><span class="section-rule" aria-hidden="true"></span> How to Contribute</h2>
+
+  <p>
+    We welcome contributions from the research community to improve and extend the iFACE project. 
+    Whether you're interested in improving the algorithms, adding new features, or reporting issues, 
+    your input is valuable.
+  </p>
+
+  <div class="contribution-card">
+    <h3><span class="contribution-icon">1</span> Report Issues & Bugs</h3>
+    <p>
+      If you encounter any bugs or issues while using the iFACE algorithms, please report them via 
+      the GitHub Issues page. Include detailed information about the error, your environment, and steps to reproduce.
+    </p>
+    <a href="https://github.com/RomaindiStasi/iFACE/issues" target="_blank" rel="noopener noreferrer" class="btn">
+      📝 Report an Issue
+    </a>
+  </div>
+
+  <div class="contribution-card">
+    <h3><span class="contribution-icon">2</span> Contribute Code</h3>
+    <p>
+      We accept pull requests for bug fixes, new features, and documentation improvements. 
+      Please ensure your code follows the project's coding standards and includes appropriate tests.
+    </p>
+    <ul class="pill-list">
+      <li class="pill">Fork the repository</li>
+      <li class="pill">Create a feature branch</li>
+      <li class="pill">Submit a pull request</li>
+    </ul>
+  </div>
+
+  <div class="contribution-card">
+    <h3><span class="contribution-icon">3</span> Share Your Data</h3>
+    <p>
+      If you have infant facial expression datasets that could help improve model performance, 
+      we'd love to hear from you. Please contact us to discuss data sharing agreements and ethical considerations.
+    </p>
+  </div>
+
+  <div class="contribution-card">
+    <h3><span class="contribution-icon">4</span> Cite Our Work</h3>
+    <p>
+      If you use the iFACE algorithms in your research, please cite our preprint:
+    </p>
+    <p style="padding: 12px; background: rgba(37,99,235,0.04); border-left: 3px solid var(--accent); border-radius: 6px; font-size: 0.9rem; color: var(--muted);">
+      di Stasi, R., Cerrotti, F., Esseily, R., & Rat-Fischer, L. (2026). 
+      <em>Unveiling Infant Surprise in a Social Context: A Multidimensional Analysis of Physiological, Behavioural, and Facial Expression Markers.</em> 
+      Preprint on SSRN. https://doi.org/10.31234/osf.io/kshw3_v1
+    </p>
+  </div>
+
+  <div class="contribution-card">
+    <h3><span class="contribution-icon">5</span> Join the Discussion</h3>
+    <p>
+      Have questions or ideas? Join our community discussions on GitHub or reach out directly via email.
+    </p>
+    <a href="mailto:romain.di-stasi@u-paris.fr" class="btn">
+      ✉️ Contact Us
+    </a>
+  </div>
+
+</section>
+
+  </main>
+
+  <footer>
+    <p>
+      &copy; 2026 CUBE-SD - iFACE Project | Université Paris Cité<br />
+      Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT License</a>
+    </p>
+  </footer>
+
+</body>
+</html>
