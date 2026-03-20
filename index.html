@@ -306,60 +306,38 @@
     font-size: 0.95rem;
   }
 
-  /* Publication Items */
-  .publication-item{
-    padding: 20px;
-    margin-bottom: 18px;
-    background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(14,165,233,0.02));
-    border: 1px solid var(--border);
+ /* CV / publication style from personal page */
+  .item{
+    margin-top: 12px;
+    padding: 14px 14px;
     border-radius: var(--radius-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    border: 1px solid var(--border);
+    background: #fbfcfe;
+    box-shadow: 0 10px 18px rgba(2,6,23,0.05);
   }
 
-  .publication-item:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(2,6,23,0.08);
-    border-color: rgba(37,99,235,0.20);
+  .item strong{
+    color: #0b1220;
+    font-weight: 750;
   }
 
-  .publication-item:last-child{
-    margin-bottom: 0;
-  }
-
-  .publication-title{
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 8px;
-    color: var(--text);
-  }
-
-  .publication-title a{
-    color: var(--accent);
+  .item strong a{
+    color: #0b1220;
+    text-decoration: none;
     transition: color 0.2s ease;
   }
 
-  .publication-title a:hover{
-    color: var(--accent-2);
-  }
-
-  .publication-meta{
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .publication-type{
-    display: inline-block;
-    padding: 4px 10px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    background: rgba(37,99,235,0.10);
+  .item strong a:hover{
     color: var(--accent);
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .item em{
+    color: var(--muted);
+  }
+
+  .item p{
+    margin-top: 8px;
   }
 
   footer{
@@ -556,89 +534,74 @@
 <section id="Publications">
   <h2><span class="section-rule" aria-hidden="true"></span> Poster Presentations</h2>
 
-  <div class="publication-item">
-    <div class="publication-type">POSTER</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       <a href="https://hal.science/hal-05463602" target="_blank" rel="noopener noreferrer">
-        What roles do uncertainty, surprise, and arousal play in infants' curiosity?
+        [Poster] What roles do uncertainty, surprise, and arousal play in infants' curiosity?
       </a>
-    </div>
-    <div class="publication-meta">
-      di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2026, January). The 16th annual BCCCD Conference - BCCCD26, Budapest, Hungary.
-    </div>
+    </strong><br />
+    <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2026, January). The 16th annual BCCCD Conference - BCCCD26, Budapest, Hungary.</em>
   </div>
 
-  <div class="publication-item">
-    <div class="publication-type">POSTER</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       <a href="https://hal.science/hal-05371654" target="_blank" rel="noopener noreferrer">
-        How do uncertainty and surprise shape exploration in infants?
+        [Poster] How do uncertainty and surprise shape exploration in infants?
       </a>
-    </div>
-    <div class="publication-meta">
-      di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, November). NeuroCog conference, Brussels, Belgium.
-    </div>
+    </strong><br />
+    <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, November). NeuroCog conference, Brussels, Belgium.</em>
   </div>
 
-  <div class="publication-item">
-    <div class="publication-type">POSTER</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       <a href="https://hal.science/hal-05086978" target="_blank" rel="noopener noreferrer">
-        Curiosity in the face of uncertainty: a developmental and comparative approach between infants and non-human primates.
+        [Poster] Curiosity in the face of uncertainty: a developmental and comparative approach between infants and non-human primates.
       </a>
-    </div>
-    <div class="publication-meta">
-      di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). Belgian Association for Psychological Sciences, Brussels, Belgium.
-    </div>
+    </strong><br />
+    <em> di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). Belgian Association for Psychological Sciences, Brussels, Belgium.</em>
   </div>
 </section>
 
 <section id="Planned_Articles">
   <h2><span class="section-rule" aria-hidden="true"></span> Planned Articles</h2>
 
-  <div class="publication-item">
-    <div class="publication-type">IN PREPARATION</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       How Do Uncertainty and Surprise Shape Infants' Curiosity? An Overview of Exploration and Exploitation Behavior.
-    </div>
-    <div class="publication-meta">
-      di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. <em>(in prep.)</em><br />
-      Target journal: <em>Infancy</em> (submission planned for July 2026).
-    </div>
+    </strong><br />
+    <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (in prep.)</em><br />
+    <em>Target journal: Infancy (submission planned for July 2026).</em>
   </div>
 
-  <div class="publication-item">
-    <div class="publication-type">PLANNED ARTICLE</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       Physiological mechanisms underlying the relationship between uncertainty and curiosity
-    </div>
-    <div class="publication-meta">
+    </strong><br />
+    <em>
       This article will focus on physiological measures (HRV and EDA) to investigate the mechanisms underlying the relationship between uncertainty and curiosity, with a particular emphasis on the roles of arousal and surprise.
-    </div>
+    </em>
   </div>
 
-  <div class="publication-item">
-    <div class="publication-type">PLANNED ARTICLE</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       Comparative studies on the Goldilocks effect in non-human primates
-    </div>
-    <div class="publication-meta">
+    </strong><br />
+    <em>
       This article will address Work package 2 and present the comparative studies conducted with non-human primates.
-    </div>
+    </em>
   </div>
 
-  <div class="publication-item">
-    <div class="publication-type">PLANNED ARTICLE</div>
-    <div class="publication-title">
+  <div class="item">
+    <strong>
       Theoretical modeling and artificial intelligence
-    </div>
-    <div class="publication-meta">
+    </strong><br />
+    <em>
       This article will address Work package 3 and focus on theoretical modeling and artificial intelligence approaches to curiosity.
-    </div>
+    </em>
   </div>
 
   <div style="margin-top: 20px;">
-    <a class="btn" href="https://romaindistasi.github.io/page"> Back to Romain di Stasi's Personal Website </a>
+    <a class="btn" href="https://romaindistasi.github.io/page">Back to Romain di Stasi's Personal Website</a>
   </div>
 </section>
 
