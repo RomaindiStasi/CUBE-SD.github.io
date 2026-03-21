@@ -153,58 +153,49 @@
   margin-top:20px;
 }
 
-.results-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:20px;
-  justify-content:center;
-  align-items:flex-start;
+/* === Preliminary Results Layout === */
+.results-layout{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr ;
+  gap:30px;
+  align-items:start;
   margin-top:20px;
 }
 
+.interpretation-column{
+  min-width:0;
+}
+
+.interpretation-column p{
+  margin-bottom:14px;
+  line-height:1.7;
+}
+
+.figures-column{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  min-width:0;
+}
+
 .figure{
-  flex:1 1 450px;
-  max-width:600px;
   margin:0;
   text-align:center;
 }
 
 .figure img{
   width:100%;
-  max-width:600px;
+  max-width:100%;
   height:auto;
   display:block;
+  margin:0 auto;
 }
 
 .figure figcaption{
   margin-top:10px;
-}
-
-/* === Preliminary Results Layout === */
-.results-layout{
-  display:flex;
-  gap:30px;
-  align-items:flex-start;
-  margin-top:20px;
-}
-
-/* Colonne gauche (texte) */
-.interpretation-column{
-  flex:1;
-  max-width:600px;
-}
-
-.interpretation-column p{
-  margin-bottom:12px;
-  line-height:1.6;
-}
-
-/* Colonne droite (figures) */
-.figures-column{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
+  font-size:0.95rem;
+  color:var(--muted);
+  line-height:1.5;
 }
     
   /* Nav */
@@ -447,6 +438,7 @@
     .project-logo img{ max-width: 200px; }
     .cube-image-container img{ max-width: 300px; }
     .item{ padding: 16px; }
+    .results-layout{ grid-template-columns: 1fr; }
   }
   </style>
 </head>
@@ -694,7 +686,7 @@
         <p><strong>Measures of <span style="color:#ea580c;">surprise</span>:</strong> social gaze (hand coded, inter-rater: 77%).</p>
 
         <p>
-          The 0/8 cube also elicited the highest level of surprise, as indicated by increased social gazes toward the parent. In contrast, infants looked significantly less at the experimenter for the 4/8 cube, but more infants are needed before drawing any firm conclusion.
+          The 0/8 cube also elicited the highest level of surprise, as indicated by increased social gazes toward the parent. In contrast, infants looked significantly less at the experimenter for the 4/8 cube, but more infants are needed before drawing any firm conclusions.
         </p>
 
       </div>
@@ -792,7 +784,7 @@
     </em>
   </div>
 </section>
-    <section id="item">
+    <section id="Back_to_home">
   <div style="margin-top: 20px;">
     <center> <a class="btn" href="https://romaindistasi.github.io/page">Back to Romain di Stasi's Personal Website</a> </center>
   </div>
