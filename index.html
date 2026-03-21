@@ -179,7 +179,34 @@
 .figure figcaption{
   margin-top:10px;
 }
-  
+
+/* === Preliminary Results Layout === */
+.results-layout{
+  display:flex;
+  gap:30px;
+  align-items:flex-start;
+  margin-top:20px;
+}
+
+/* Colonne gauche (texte) */
+.interpretation-column{
+  flex:1;
+  max-width:600px;
+}
+
+.interpretation-column p{
+  margin-bottom:12px;
+  line-height:1.6;
+}
+
+/* Colonne droite (figures) */
+.figures-column{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+    
   /* Nav */
   nav{
     position: sticky;
@@ -640,36 +667,57 @@
     </section>
 
 <section id="Preliminary_Results">
-  <div class="grid">
-    <h2><span class="section-rule" aria-hidden="true"></span> Preliminary Results</h2>
+  <h2><span class="section-rule" aria-hidden="true"></span> Preliminary Results</h2>
 
-    <div class="item">
-      <strong>Last results presented (January 2026)</strong>
+  <div class="item">
+    <strong>Last results presented (January 2026)</strong>
 
-      <div class="results-row">
+    <div class="results-layout">
+
+      <!-- Colonne gauche : interprétation en texte -->
+      <div class="interpretation-column">
+
+        <p><strong>Measures of <span style="color:#7c3aed;">curiosity</span>:</strong> proportion of button presses (hand coded, inter-rater: 96.31%) and exploration vs. exploitation (automated measures).</p>
+
+        <p>
+          Infants explored more when interacting with the cube that never produced any sound (0/8), suggesting greater <span style="color:#7c3aed;">curiosity</span> in the absence of stimulation.
+        </p>
+
+        <p>
+          The other conditions showed an interesting pattern: the highest proportion of button presses occurred for the 4/8 cube, followed by the 1/8 cube, and the lowest for the 8/8 cube. This pattern resembles a <em>Goldilocks effect</em>, but it is not statistically significant in our preliminary data.
+        </p>
+
+        <p>
+          Regarding the exploitative and explorative measures, we observe that the highest levels of exploration and the lowest levels of exploitation are reached with the 4/8 cube, consistent with a <em>Goldilocks effect</em> pattern as well.
+        </p>
+
+        <p><strong>Measures of <span style="color:#ea580c;">surprise</span>:</strong> social gaze (hand coded, inter-rater: 77%).</p>
+
+        <p>
+          The 0/8 cube also elicited the highest level of surprise, as indicated by increased social gazes toward the parent. In contrast, infants looked significantly less at the experimenter for the 4/8 cube, but more infants are needed before drawing any firm conclusion.
+        </p>
+
+      </div>
+
+      <!-- Colonne droite : figures -->
+      <div class="figures-column">
+
         <figure class="figure">
-          <img src="Images/Preli_results.png" alt="Preliminary results">
+          <img src="Images/Prediction.svg" alt="Our predictions">
           <figcaption>
-            Our preliminary results.
+            Our predictions concerning the pairwise relationships between the dependent variables.
           </figcaption>
         </figure>
 
-        <div class="predictions-column">
-          <figure class="figure">
-            <img src="Images/Prediction.svg" alt="Our predictions">
-            <figcaption>
-              Our predictions concerning the pairwise relationships between the dependent variables.
-            </figcaption>
-          </figure>
+        <figure class="figure">
+          <img src="Images/Preliminary Results.svg" alt="Our actual preliminary results">
+          <figcaption>
+            Our actual preliminary results.
+          </figcaption>
+        </figure>
 
-          <figure class="figure">
-            <img src="Images/Preliminary Results.svg" alt="Our actual preliminary results">
-            <figcaption>
-              Our actual preliminary results.
-            </figcaption>
-          </figure>
-        </div>
       </div>
+
     </div>
   </div>
 </section>
