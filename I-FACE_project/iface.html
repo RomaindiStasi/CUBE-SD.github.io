@@ -452,17 +452,41 @@ footer{
 <section id="about">
   <h2><span class="section-rule" aria-hidden="true"></span> Project Overview</h2>
 
-  <p class="lead">
-    The <strong>iFACE project</strong> is part of the broader CUBE-SD research program and aims to improve the automated recognition of <strong>infant facial expressions</strong>, with a particular interest in expressions related to <strong>surprise</strong>.
-  </p>
+<p class="lead">
+  The <strong>iFACE project</strong> is part of the broader CUBE-SD research program and aims to improve the automated recognition 
+  of <strong>infant facial expressions</strong>.
+</p>
 
-  <p>
-    The current implementation combines a <strong>convolutional neural network</strong> for image classification with additional exploratory work on <strong>facial landmarks</strong>, <strong>Delaunay triangulation</strong>, and infant-oriented facial descriptors. The broader objective is not only to classify expressions, but also to better understand which visual and geometric cues are informative in infant faces.
-  </p>
+<p>
+  The aim of this project is to develop an open-source and freely available tool for the automatic recognition of infant facial expressions across seven categories: happiness, anger, disgust, surprise, fear, sadness, and neutral.
+</p>
 
-  <p>
-    A central motivation of the project is that most standard facial-expression systems were designed for adults, whereas infant faces differ in morphology, proportions, and expression dynamics. iFACE therefore explores methods that are both <strong>technically effective</strong> and <strong>scientifically interpretable</strong>.
-  </p>
+<p>
+  This project stems from the observation that, although behavioural indicators of surprise are relatively easy to identify in standard screen-based violation-of-expectation paradigms, they are much more difficult to assess in social contexts such as social learning. In such situations, infants may look in different directions, making gaze-based measures harder to interpret. See this
+  <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6153066" target="_blank" rel="noopener noreferrer">preprint</a>
+  for a more detailed discussion of why better tools are needed to characterise surprise in social contexts.
+</p>
+
+<p>
+  A central motivation of the project is that most facial-expression recognition systems were originally developed for adults, whereas infant faces differ in morphology, proportions, and expression dynamics. iFACE therefore explores methods that are both <strong>technically effective</strong> and <strong>scientifically interpretable</strong>.
+</p>
+
+<p>
+  The current implementation relies primarily on a <strong>convolutional neural network</strong> for image classification. Rather than training a model from scratch, we leveraged a pre-trained <strong><i>ResNet18</i></strong> architecture, originally trained on large-scale image recognition datasets, and fine-tuned it on infant facial expression data. In parallel, exploratory work using <strong>facial landmarks</strong> and <strong>Delaunay triangulation</strong> is conducted to provide a more interpretable representation of infant facial geometry.
+</p>
+
+<p>
+  The current version of the algorithm is based on the
+  <a href="https://link.springer.com/article/10.3758/s13428-017-0859-9" target="_blank" rel="noopener noreferrer">dataset developed by Webb et al. (2017)</a>.
+</p>
+
+<p>
+  The main libraries used in the current pipeline include <i>PyTorch</i>, <i>OpenCV</i>, and <i>face_alignment</i>. The results presented here remain preliminary, and the algorithm still requires further development and validation.
+</p>
+
+<p>
+  The source code is not yet publicly available, as it is intended to be released alongside the associated publication. However, if you are interested in contributing to the project, you are very welcome to get in touch. Depending on the nature and extent of the contribution, collaborators may be acknowledged or included as co-authors on future outputs.
+</p>
 
   <div class="kpi-grid">
     <div class="kpi">
@@ -474,12 +498,13 @@ footer{
       Pre-trained CNN backbone used in the main pipeline
     </div>
     <div class="kpi">
-      <strong>80 / 20</strong>
+      <strong>80% / 20%</strong>
       Train / validation split
     </div>
     <div class="kpi">
-      <strong>GPU-ready</strong>
-      CPU/GPU-compatible training setup
+      <strong>GPU-ready</strong><br>
+      Model training was conducted on a high-performance workstation equipped with an Intel Core i9-14900HX CPU (24 cores, 32 threads) 
+      and an NVIDIA GeForce RTX 4060 Laptop GPU (8 GB VRAM). This configuration supports efficient deep learning training for medium-scale models and computer vision tasks.
     </div>
   </div>
 
