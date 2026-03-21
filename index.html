@@ -145,6 +145,40 @@
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
     box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
   }
+    
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+
+.results-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+  align-items:flex-start;
+  margin-top:20px;
+}
+
+.figure{
+  flex:1 1 450px;
+  max-width:600px;
+  margin:0;
+  text-align:center;
+}
+
+.figure img{
+  width:100%;
+  max-width:600px;
+  height:auto;
+  display:block;
+}
+
+.figure figcaption{
+  margin-top:10px;
+}
   
   /* Nav */
   nav{
@@ -306,7 +340,7 @@
     font-size: 0.95rem;
   }
 
- /* CV / publication style from personal page */
+ /* CV / Poster style from personal page */
   .item{
     margin-top: 12px;
     padding: 14px 14px;
@@ -415,7 +449,8 @@
       <a href="#Structure">Research Work-packages (WP) </a>
       <a href ="https://romaindistasi.github.io/CUBE-SD.github.io/I-FACE_project/iface.html"> i-FACE part </a>
       <a href="#Team">Team</a>
-      <a href="#Publications">Posters</a>
+      <a href ="#Preliminary_Results"> Preliminary Results </a>
+      <a href="#Posters">Posters</a>
       <a href="#Planned_Articles">Planned Articles</a>
     </div>
   </nav>
@@ -604,8 +639,35 @@
       </div>
     </section>
 
-<section id="Publications">
-  <h2><span class="section-rule" aria-hidden="true"></span> Poster Presentations</h2>
+<section id="Preliminary_Results">
+  <div class="grid">
+    <h2><span class="section-rule" aria-hidden="true"></span> Preliminary Results</h2>
+
+    <div class="item">
+      <strong>Last results presented (January 2026)</strong>
+
+      <div class="results-row">
+        <figure class="figure">
+          <img src="Images/Prediction.svg" alt="Our predictions">
+          <figcaption>
+            Our predictions concerning the pairwise relationships between the dependent variables.
+          </figcaption>
+        </figure>
+
+        <figure class="figure">
+          <img src="Images/Preliminary Results.svg" alt="Our preliminary results">
+          <figcaption>
+            Our actual preliminary results.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="Posters">
+  <h2><span class="section-rule" aria-hidden="true"></span> Posters Presentations</h2>
 
   <div class="item">
     <strong>
