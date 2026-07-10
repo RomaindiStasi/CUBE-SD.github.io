@@ -462,34 +462,46 @@ footer{
   </p>
 
   <p>
-    The aim of this project is to develop an open-source and freely available tool for the automatic recognition of infant facial expressions across seven categories: happiness, anger, disgust, surprise, fear, sadness, and neutral.
+    The aim of this project is to develop an open-source and freely available tool for the automatic recognition 
+    of infant facial expressions across seven categories: happiness, anger, disgust, surprise, fear, sadness, and neutral.
   </p>
 
   <p>
-    This project stems from the observation that, although behavioural indicators of surprise are relatively easy to identify in standard screen-based violation-of-expectation paradigms, they are much more difficult to assess in social contexts such as social learning. In such situations, infants may look in different directions, making gaze-based measures harder to interpret. See this
+    This project stems from the observation that, although behavioural indicators of surprise are relatively easy to identify 
+    in standard screen-based violation-of-expectation paradigms (e.g., Baillargeon, 1993; Baillargeon et al., 1985; 
+    Baillargeon & Graber, 1987; Horstmann, 2015; Ramsay & Campos, 1975; Spelke et al., 1992), they are much more difficult to assess in social contexts such 
+    as social learning. In such situations, infants may look in different directions, making gaze-based measures harder to interpret. See this
     <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6153066" target="_blank" rel="noopener noreferrer">preprint</a>
     for a more detailed discussion of why better tools are needed to characterise surprise in social contexts.
   </p>
 
   <p>
-    A central motivation of the project is that most facial-expression recognition systems were originally developed for adults, whereas infant faces differ in morphology, proportions, and expression dynamics. iFACE therefore explores methods that are both <strong>technically effective</strong> and <strong>scientifically interpretable</strong>.
+    A central motivation of the project is that most facial-expression recognition systems were originally developed for adults, 
+    whereas infant faces differ in morphology, proportions, and expression dynamics. iFACE therefore explores methods that are 
+    both <strong>technically effective</strong> and <strong>scientifically interpretable</strong>.
   </p>
 
   <p>
-    The current implementation relies primarily on a <strong>convolutional neural network</strong> for image classification. Rather than training a model from scratch, we leveraged a pre-trained <strong><i>ResNet18</i></strong> architecture, originally trained on large-scale image recognition datasets, and fine-tuned it on infant facial expression data. In parallel, exploratory work using <strong>facial landmarks</strong> and <strong>Delaunay triangulation</strong> is conducted to provide a more interpretable representation of infant facial geometry.
+    The current implementation relies primarily on a <strong> Convolutional Neural Network </strong> for image classification. 
+    Rather than training a model from scratch, we leveraged a pre-trained <strong><i>ResNet18</i></strong> architecture, originally 
+    trained on large-scale image recognition datasets, and fine-tuned it on infant facial expression data. In parallel, exploratory work using 
+    <strong>facial landmarks</strong> and <strong>Delaunay triangulation</strong> is conducted to provide a more interpretable representation of infant facial geometry.
   </p>
 
   <p>
     The current version of the algorithm is based on the
-    <a href="https://link.springer.com/article/10.3758/s13428-017-0859-9" target="_blank" rel="noopener noreferrer">dataset developed by Webb et al. (2017)</a>.
+    <a href="https://link.springer.com/article/10.3758/s13428-017-0859-9" target="_blank" rel="noopener noreferrer"> dataset developed by Webb et al. (2017) </a>.
   </p>
 
   <p>
-    The main libraries used in the current pipeline include <i>PyTorch</i>, <i>OpenCV</i>, and <i>face_alignment</i>. The results presented here remain preliminary, and the algorithm still requires further development and validation.
+    The main libraries used in the current pipeline include <i>PyTorch</i>, <i>OpenCV</i>, and <i>face_alignment</i>. The results presented here remain preliminary,
+    and the algorithm still requires further development and validation.
   </p>
 
   <p>
-    The source code is not yet publicly available, as it is intended to be released alongside the associated publication. However, if you are interested in contributing to the project, you are very welcome to get in touch. Depending on the nature and extent of the contribution, collaborators may be acknowledged or included as co-authors on future outputs.
+    The source code is not yet publicly available, as it is intended to be released alongside the associated publication. However, if you are interested in contributing 
+    to the project, you are very welcome to get in touch. Depending on the nature and extent of the contribution, collaborators may be acknowledged or included as 
+    co-authors on future outputs.
   </p>
 
   <div class="kpi-grid">
@@ -515,11 +527,15 @@ footer{
   </div>
 
   <div class="note">
-    <strong>Training hardware:</strong> model training was conducted on a high-performance workstation equipped with an <strong>Intel Core i9-14900HX</strong> CPU (24 cores, 32 threads) and an <strong>NVIDIA GeForce RTX 4060 Laptop GPU</strong> with <strong>8 GB VRAM</strong>. This configuration supports efficient deep learning training for medium-scale computer vision models.
+    <strong>Training hardware:</strong> model training was conducted on a high-performance workstation equipped with an <strong>Intel Core i9-14900HX</strong> 
+    CPU (24 cores, 32 threads) and an <strong>NVIDIA GeForce RTX 4060 Laptop GPU</strong> with <strong>8 GB VRAM</strong>. This configuration supports efficient 
+    deep learning training for medium-scale computer vision models.
   </div>
 
   <div class="note">
-    <strong>Methodological note:</strong> the notebook describes a main CNN classification pipeline, a multi-task extension involving Action Units, and a later landmark-based triangulation extension. These components are not all at the same stage of validation, so they are presented here as different parts of an evolving research workflow.
+    <strong>Methodological note:</strong> the notebook describes a main Convolutional Neural Network (CNN) classification pipeline, a 
+    multi-task extension involving Action Units, and a later landmark-based triangulation extension. These 
+    components are not all at the same stage of validation, so they are presented here as different parts of an evolving research workflow.
   </div>
 </section>
 
@@ -527,14 +543,16 @@ footer{
   <h2><span class="section-rule" aria-hidden="true"></span> Methods</h2>
 
   <p>
-    The current workflow starts from an infant facial-expression image dataset organised into seven emotional categories: <strong>anger</strong>, <strong>disgust</strong>, <strong>fear</strong>, <strong>happy</strong>, <strong>neutral</strong>, <strong>sad</strong>, and <strong>surprise</strong>.
+    The current workflow starts from an infant facial-expression image dataset organised into seven emotional categories: 
+    <strong>anger</strong>, <strong>disgust</strong>, <strong>fear</strong>, <strong>happy</strong>, <strong>neutral</strong>, <strong>sad</strong>, and <strong>surprise</strong>.
   </p>
 
   <div class="two-col">
     <div class="card">
       <h3>1. Dataset organisation</h3>
       <p>
-        Images are stored by emotion class and loaded through a custom PyTorch dataset. This dataset class is responsible for reading the images, assigning labels from the folder structure, and preparing them for training.
+        Images are stored by emotion class and loaded through a custom PyTorch dataset. This dataset class is responsible for reading the images, assigning labels 
+        from the folder structure, and preparing them for training.
       </p>
       <p class="small">
         The model therefore learns from labelled infant-face images rather than from manually entered features only.
@@ -544,7 +562,8 @@ footer{
     <div class="card">
       <h3>2. Train / validation split</h3>
       <p>
-        The main training procedure uses an <strong>80% / 20%</strong> split between training and validation data. When possible, the split is performed with <strong>stratification</strong> so that class proportions are preserved across subsets.
+        The main training procedure uses an <strong>80% / 20%</strong> split between training and validation data. When possible, the split is performed 
+        with <strong>stratification</strong> so that class proportions are preserved across subsets.
       </p>
       <ul class="step-list">
         <li><strong>Training set:</strong> used to update model weights</li>
@@ -555,7 +574,8 @@ footer{
     <div class="card">
       <h3>3. Image preprocessing and augmentation</h3>
       <p>
-        Before entering the model, images are resized and normalised. During training, several augmentation steps are used to improve robustness, including <strong>horizontal flipping</strong>, <strong>small rotations</strong>, and <strong>brightness / contrast jitter</strong>.
+        Before entering the model, images are resized and normalised. During training, several augmentation steps are used to improve robustness, including 
+        <strong>horizontal flipping</strong>, <strong>small rotations</strong>, and <strong>brightness / contrast jitter</strong>.
       </p>
       <p class="small">
         These transformations are intended to reduce overfitting and help the classifier handle modest visual variability.
@@ -565,7 +585,8 @@ footer{
     <div class="card">
       <h3>4. Main classifier</h3>
       <p>
-        The core model is based on a <strong>pre-trained ResNet18</strong>, adapted for seven-way infant expression classification. Using a pre-trained network allows the system to start from visual features learned on large image datasets and then specialise them for the infant-expression task.
+        The core model is based on a <strong>pre-trained ResNet18</strong>, adapted for seven-way infant expression classification. Using a pre-trained network 
+        allows the system to start from visual features learned on large image datasets and then specialise them for the infant-expression task.
       </p>
     </div>
   </div>
@@ -573,7 +594,8 @@ footer{
   <figure class="figure">
     <img src="images/Entry.png" alt="Overview of the iFACE workflow">
     <figcaption>
-      General overview of the iFACE workflow. The project combines a main CNN-based image classifier with later extensions aimed at improving interpretability and infant-specific facial representation.
+      General overview of the iFACE workflow. The project combines a main CNN-based image classifier with later extensions aimed at improving interpretability 
+      and infant-specific facial representation.
     </figcaption>
   </figure>
 
@@ -581,39 +603,46 @@ footer{
     <div class="card">
       <h3>Training configuration</h3>
       <p>
-        The notebook defines a training procedure using configurable hyperparameters such as <strong>batch size</strong>, <strong>number of epochs</strong>, and <strong>learning rate</strong>. The batch size is automatically adjusted depending on whether a GPU is available.
+        The notebook defines a training procedure using configurable hyperparameters such as <strong>batch size</strong>, <strong>number of epochs</strong>, and 
+        <strong>learning rate</strong>. The batch size is automatically adjusted depending on whether a GPU is available.
       </p>
     </div>
 
     <div class="card">
       <h3>GPU compatibility</h3>
       <p>
-        The pipeline is explicitly designed to run on either <strong>GPU</strong> or <strong>CPU</strong>. When CUDA is available, the model and tensors are moved to the GPU to speed up optimisation and allow larger batches.
+        The pipeline is explicitly designed to run on either <strong>GPU</strong> or <strong>CPU</strong>. When CUDA is available, the model and tensors are moved 
+        to the GPU to speed up optimisation and allow larger batches.
       </p>
     </div>
 
     <div class="card">
       <h3>Exploratory multi-task extension</h3>
       <p>
-        The notebook also includes a <strong>multi-task version</strong> intended to predict both emotion categories and <strong>Action Units (AUs)</strong>. In its current form, this section is best understood as exploratory development rather than as a fully validated final model.
+        The notebook also includes a <strong>multi-task version</strong> intended to predict both emotion categories and <strong>Action Units (AUs)</strong>. In its current 
+        form, this section is best understood as exploratory development rather than as a fully validated final model.
       </p>
     </div>
 
     <div class="card">
       <h3>Landmark-based extension</h3>
       <p>
-        A separate methodological branch investigates <strong>facial landmarks</strong> and <strong>Delaunay triangulation</strong> to build a more geometric and interpretable representation of infant faces. This extension is conceptually important because it may help identify which facial regions contribute most to the classification process.
+        A separate methodological branch investigates <strong>facial landmarks</strong> and <strong>Delaunay triangulation</strong> to build a more geometric 
+        and interpretable representation of infant faces. This extension is conceptually important because it may help identify which facial regions contribute most to the classification process.
       </p>
     </div>
   </div>
 
   <h3>Why landmarks and triangulation were introduced</h3>
   <p>
-    The main CNN can classify images directly from pixels, but it does not by itself provide a transparent facial geometry. The landmark-based extension was therefore introduced to better characterise facial structure, support interpretability, and explore whether infant-specific geometric information could improve performance or help explain classification errors.
+    The main CNN can classify images directly from pixels, but it does not by itself provide a transparent facial geometry. The landmark-based extension was therefore 
+    introduced to better characterise facial structure, support interpretability, and explore whether infant-specific geometric information could improve performance or 
+    help explain classification errors.
   </p>
 
   <div class="note">
-    <strong>Interpretation point:</strong> in the current material, the CNN classification pipeline is the most operational part of the algorithm. The landmark and triangulation steps should be presented as a complementary methodological development, not as something already fully integrated into the final classifier.
+    <strong>Interpretation point:</strong> in the current material, the CNN classification pipeline is the most operational part of the algorithm. The landmark and triangulation 
+    steps should be presented as a complementary methodological development, not as something already fully integrated into the final classifier.
   </div>
 </section>
 
@@ -621,25 +650,30 @@ footer{
   <h2><span class="section-rule" aria-hidden="true"></span> Results and Pipeline Evolution</h2>
 
   <p>
-    The figures below illustrate the progressive development of the iFACE pipeline: initial image-based classification, examination of confusion patterns, checks for overfitting, and later work on landmark-guided facial representation.
+    The figures below illustrate the progressive development of the iFACE pipeline: initial image-based classification, examination of confusion patterns, checks for 
+    overfitting, and later work on landmark-guided facial representation.
   </p>
 
   <h3>Landmarking and geometric representation</h3>
 
-  <div class="one-col">
-    <figure class="figure">
-      <img src="images/Pointing.png" alt="Infant face with facial landmarks">
-      <figcaption>
-        Example of facial landmark localisation on an infant face. These points provide a structured representation of facial geometry and make it easier to study the spatial configuration of brows, eyes, nose, and mouth.
-      </figcaption>
-    </figure>
-  </div>
+<div class="one-col">
+  <figure class="figure">
+    <img src="images/Pointing.png" alt="Infant face with facial landmarks">
+    <figcaption>
+  Example of facial landmark localisation on an infant face. These points provide a structured representation of facial geometry and make it easier to study the
+  spatial configuration of the brows, eyes, nose, and mouth.
+  <br>
+  <strong>Important note:</strong> At this stage, we performed facial landmark localisation on only <em>10 images</em>.
+</figcaption>
+  </figure>
+</div>
 
 <div class="one-col">
   <figure class="figure">
     <img src="images/Img_Face.svg" alt="Delaunay triangulation over infant facial landmarks">
     <figcaption>
-      Delaunay triangulation built from facial landmarks. This geometric representation is useful for analysing local facial deformations and for exploring more interpretable infant-specific descriptors.
+      Delaunay triangulation built from facial landmarks. This geometric representation is useful for analysing local facial deformations and for exploring more interpretable 
+      infant-specific descriptors.
     </figcaption>
   </figure>
 </div>
@@ -647,24 +681,42 @@ footer{
   
   <h3>Initial classification stage</h3>
   
-  <div class="two-col">
-    <figure class="figure">
-      <img src="images/First_Results.png" alt="Early classification examples from the iFACE pipeline">
-      <figcaption>
-        Early qualitative classification examples. These outputs suggest that the model can identify some infant expressions correctly at the image level, including surprise in at least some cases.
-      </figcaption>
-    </figure>
+<div class="two-col">
+  <p>
+    The facial landmarking step described above provides a structured localisation of key regions of the infants’ faces and facilitates 
+    <em>Delaunay triangulation</em>. This may help improve model performance, but it is important to note that it may also increase the risk of overfitting.
+  </p>
 
-    <figure class="figure">
-      <img src="images/Conf_First_Results.png" alt="First confusion matrix">
-      <figcaption>
-        Early confusion matrix from the first classification stage. The results indicate that some categories are discriminable, but also reveal substantial confusion between visually close expressions.
-      </figcaption>
-    </figure>
-  </div>
+  <figure class="figure">
+    <img src="images/Second_Result_Overfitting.png" alt="Classification report for the facial expression model">
+    <figcaption>
+      The classification report summarises model performance for each emotion category. 
+      <em>Precision</em> indicates the proportion of correct predictions among all images classified as a given emotion. 
+      <em>Recall</em> indicates the proportion of images from a given emotion category that were correctly identified by the model. 
+      The <em>F1-score</em> combines precision and recall into a single performance measure. 
+      <em>Support</em> corresponds to the number of images available for each emotion category in the validation set.
+    </figcaption>
+  </figure>
+</div>
+
+<figure class="figure">
+  <img src="images/Confusion_Matrix_OverFinting.png" alt="First confusion matrix">
+  <figcaption>
+    The confusion matrix shows that the model made relatively few classification errors overall, 
+    with most predictions located on the diagonal. This indicates that the majority of facial expressions were 
+    correctly classified. The main confusion involved the surprise category, with a few surprise images being 
+    classified as fear, neutral, sad, or anger. However, given the total number of surprise images, these errors remain relatively limited.
+    <em>
+      A key challenge visible in the early matrices is that <strong>surprise</strong> is not perfectly separated from neighbouring categories such as <strong>fear</strong>. 
+    This is scientifically important because these expressions may share features such as widened eyes or open mouth-configurations.
+    </em>
+  </figcaption>
+</figure>
 
   <div class="note">
-    A key challenge visible in the early matrices is that <strong>surprise</strong> is not isolated perfectly from neighbouring categories such as <strong>fear</strong>. This is scientifically important because these expressions may share features such as widened eyes or open mouth configurations.
+    Nevertheless, these results should be interpreted cautiously, as <em>overfitting</em> may still be present at this stage. 
+    Additional analyses, such as comparing training and validation performance or applying cross-validation to a larger dataset, 
+    are needed to better assess the model’s generalisability.
   </div>
 
   <h3>Overfitting assessment</h3>
@@ -673,14 +725,16 @@ footer{
     <figure class="figure">
       <img src="images/Confusion_Matrix_OverFinting.png" alt="Confusion matrix with very strong diagonal performance">
       <figcaption>
-        Later-stage confusion matrix with very strong diagonal values. Such results can be encouraging, but they also motivate closer examination of whether performance is stable on unseen data.
+        Later-stage confusion matrix with very strong diagonal values. Such results can be encouraging, but they also 
+        motivate closer examination of whether performance is stable on unseen data.
       </figcaption>
     </figure>
 
     <figure class="figure">
       <img src="images/OverFitting_Report.png" alt="Overfitting evaluation report">
       <figcaption>
-        Overfitting report used to assess whether strong apparent performance truly reflects generalisable learning. In this workflow, model development is not limited to maximising accuracy; it also involves checking whether results remain credible beyond the training data.
+        Overfitting report used to assess whether strong apparent performance truly reflects generalisable learning. In this workflow, model development is not limited 
+        to maximising accuracy; it also involves checking whether results remain credible beyond the training data.
       </figcaption>
     </figure>
   </div>
@@ -689,7 +743,8 @@ footer{
     <img src="images/Training_only_Class_head.png" alt="Step 1 of training: classification head training">
     <figcaption>
       <strong>Step 1: Training the classification head</strong><br>
-      In the first stage, the model starts from a pre-trained visual backbone and learns to separate infant facial expressions using a task-specific classification layer. This is a common transfer-learning strategy: the system keeps previously learned visual knowledge while adapting the final decision layer to the new emotion labels.
+      In the first stage, the model starts from a pre-trained visual backbone and learns to separate infant facial expressions using a task-specific classification layer. 
+      This is a common transfer-learning strategy: the system keeps previously learned visual knowledge while adapting the final decision layer to the new emotion labels.
     </figcaption>
   </figure>
 
@@ -697,7 +752,9 @@ footer{
     <img src="images/Fine_Tuning.png" alt="Step 2 of training: fine-tuning the network">
     <figcaption>
       <strong>Step 2: Fine-tuning the network</strong><br>
-      In the second stage, the optimisation can be extended to more of the network so that the visual representation itself becomes better adapted to infant faces. This stage is important because infant morphology differs from adult faces, and a more specific representation may improve classification while still requiring careful monitoring for overfitting.
+      In the second stage, the optimisation can be extended to more of the network so that the visual representation itself becomes better adapted to infant faces. 
+      This stage is important because infant morphology differs from adult faces, and a more specific representation may improve classification while still requiring 
+      careful monitoring for overfitting.
     </figcaption>
   </figure>
 
@@ -705,16 +762,18 @@ footer{
 
   <div class="two-col">
     <figure class="figure">
-      <img src="images/Second_Result_Overfitting.png" alt="Refined classification examples after adjustments">
+      <img src="images/Final_Results_To_reinforce.png" alt="Refined classification examples after adjustments">
       <figcaption>
-        Qualitative examples from a later version of the pipeline after refinement. At this stage, the focus is not only on correct predictions, but on obtaining results that are more stable and more believable across images.
+        As you can see here, after reducing potential overfitting, the CNN performance is substantially lower. That said, as mentioned earlier, 
+        <em> only 10 infant images had facial landmark annotations </em> in the database. Some M2 students under my supervision are currently working on fine-tuning and improving this model. 
       </figcaption>
     </figure>
 
     <figure class="figure">
       <img src="images/Final_Confusion_Matrix.png" alt="Final confusion matrix after refinement">
       <figcaption>
-        Final confusion matrix from a later development stage. The model still captures meaningful expression-related structure, but some categories remain difficult to separate fully, especially when facial configurations overlap.
+        Final confusion matrix from a later development stage. The model still captures meaningful expression-related structure, but some categories remain difficult 
+        to separate fully, especially when facial configurations overlap.
       </figcaption>
     </figure>
   </div>
@@ -723,7 +782,8 @@ footer{
     <div class="card">
       <h3>Main strength</h3>
       <p>
-        The project already demonstrates that infant facial expressions can be approached with a transfer-learning pipeline based on a modern CNN architecture, rather than relying only on adult-oriented tools.
+        The project already demonstrates that infant facial expressions can be approached with a transfer-learning pipeline based on a modern CNN architecture, rather 
+        than relying only on adult-oriented tools.
       </p>
     </div>
 
@@ -744,7 +804,8 @@ footer{
     <div class="card">
       <h3>Current stage of the project</h3>
       <p>
-        iFACE should be understood as a promising but still developing infant-specific emotion-recognition framework. Its value lies both in current performance and in the methodological tools it is building for future improvement.
+        iFACE should be understood as a promising but still developing infant-specific emotion-recognition framework. Its value lies both in current performance 
+        and in the methodological tools it is building for future improvement.
       </p>
     </div>
   </div>
@@ -754,11 +815,13 @@ footer{
   <h2><span class="section-rule" aria-hidden="true"></span> Contribute</h2>
 
   <p>
-    We welcome contributions to the iFACE project. Contributions may include improving the codebase, discussing infant-adapted facial descriptors, helping with annotation strategies, or contributing to more robust and transparent model evaluation.
+    We welcome contributions to the iFACE project. Contributions may include improving the codebase, discussing infant-adapted facial descriptors, helping with annotation 
+    strategies, or contributing to more robust and transparent model evaluation.
   </p>
 
   <p>
-    The project may be of particular interest to researchers working on infant development, affective computing, computer vision, facial landmarks, reproducible research, and interpretable machine learning.
+    The project may be of particular interest to researchers working on infant development, affective computing, computer vision, facial landmarks, reproducible research, 
+    and interpretable machine learning.
   </p>
 
   <p>
